@@ -14,14 +14,8 @@ router.post('/', async (req, res) => {
         ssl: true,
     });
 
-    client.connect(process.env.DATABASE_URL, function(err, client, done) {
-        console.log(err+"!!!!!!!!!!!!!!!");
-        client.query('INSERT INTO users (username, email, password) VALUES ($1, $2, $3)', [req.body.username, req.body.email, req.body.password], function(err, result) {
-            done();
-            if(err) return console.error(err);
-            console.log(result.rows);
-        });
-    });
+    client.connect(process.env.DATABASE_URL)
+
     //res.send("POST!");
 });
 
