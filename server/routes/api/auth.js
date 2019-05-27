@@ -29,7 +29,8 @@ async function loadUsers() {
           console.log(JSON.stringify(row));
         }
 
-    
+    });
+
     return client;
 }
 
