@@ -17,7 +17,9 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
 
-    res.send("POST!");
+    cient.query(
+        'INSERT into users (username, email, password) VALUES($1, $2, $3) RETURNING id', 
+        [req.body.username, req.body.email, req.body.password]);
 });
 
 
