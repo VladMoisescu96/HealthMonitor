@@ -10,9 +10,9 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const users = await loadUsers();
 
-    await users.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [req.body.username, req.body.email, req.body.password]);
-    users.end();
-    res.send(users);
+    // await users.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [req.body.username, req.body.email, req.body.password]);
+    // users.end();
+    res.send("Ceva text");
 });
 
 async function loadUsers() {
@@ -31,7 +31,8 @@ async function loadUsers() {
 
     });
 
-    return client;
+    client.end;
+    //return client;
 }
 
 
