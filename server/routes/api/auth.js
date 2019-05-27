@@ -8,10 +8,15 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const users = await loadUsers();
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: true,
+    });
+      
+    client.connect();
 
-    // await users.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [req.body.username, req.body.email, req.body.password]);
-    // users.end();
+    await client.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [req.body.username, req.body.email, req.body.password]);
+    client.end();
     res.send("Ceva text");
 });
 
@@ -31,7 +36,7 @@ async function loadUsers() {
 
     });
 
-    client.end;
+    client.end();
     //return client;
 }
 
