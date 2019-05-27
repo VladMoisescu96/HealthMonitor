@@ -4,10 +4,10 @@ const router = express.Router();
 
 const { Client } = require('pg');
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true,
-});
+// const client = new Client({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: true,
+// });
 
 //client.connect();
 
@@ -17,10 +17,14 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
 
-    client.connect();
-    // cient.query(
-    //     'INSERT into users (username, email, password) VALUES($1, $2, $3) RETURNING id', 
-    //     [req.body.username, req.body.email, req.body.password]);
+    Client.connect(process.env.DATABASE_URL, function(err, client, done) {
+        console.log(err+"!!!!!!!!!!!!!!!");
+       client.query('SELECT * FROM your_table', function(err, result) {
+         done();
+         if(err) return console.error(err);
+         console.log(result.rows);
+       });
+     });
 });
 
 
