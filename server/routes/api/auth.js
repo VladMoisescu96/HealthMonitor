@@ -21,14 +21,10 @@ router.post('/', async (req, res) => {
 
     Client.connect(process.env.DATABASE_URL, function(err, client, done) {
         console.log(err+"!!!!!!!!!!!!!!!");
-       client.query('SELECT * FROM users', function(err, result) {
-         done();
-         if(err) return console.error(err);
-         console.log(result.rows);
-       });
+       
      });
 
-    //res.send(process.env.DATABASE_URL);
+    res.send(process.env.DATABASE_URL);
 
 });
 
