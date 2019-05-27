@@ -9,8 +9,9 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     const users = await loadUsers();
-    await users.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [req.body.username, req.body.email, req.body.password]);
-    res.status(201).send();
+
+    //await users.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [req.body.username, req.body.email, req.body.password]);
+    res.send(users);
 });
 
 async function loadUsers() {
