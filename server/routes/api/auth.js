@@ -14,7 +14,7 @@ router.post('/', async (req, res) => {
         ssl: true,
     });
 
-    //client.connect(process.env.DATABASE_URL)
+    client.connect(process.env.DATABASE_URL)
 
     console.log(client);
     //res.send("POST!");
