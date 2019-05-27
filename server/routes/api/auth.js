@@ -9,7 +9,12 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
 
-    Client.connect(process.env.DATABASE_URL, function(err, client, done) {
+    const client = new Client({
+        connectionString: process.env.DATABASE_URL,
+        ssl: true,
+    });
+
+    client.connect(process.env.DATABASE_URL, function(err, client, done) {
         console.log(err+"!!!!!!!!!!!!!!!");
         client.query('INSERT INTO users (username, email, password) VALUES ($1, $2, $3)', [req.body.username, req.body.email, req.body.password], function(err, result) {
             done();
