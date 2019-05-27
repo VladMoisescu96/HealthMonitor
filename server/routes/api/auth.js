@@ -10,7 +10,8 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
     const users = await loadUsers();
 
-    //await users.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [req.body.username, req.body.email, req.body.password]);
+    await users.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [req.body.username, req.body.email, req.body.password]);
+    users.end();
     res.send(users);
 });
 
