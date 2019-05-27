@@ -9,7 +9,7 @@ const client = new Client({
   ssl: true,
 });
 
-client.connect();
+//client.connect();
 
 router.get('/', async (req, res) => {
     res.send("Hello from users");
@@ -17,9 +17,10 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
 
-    cient.query(
-        'INSERT into users (username, email, password) VALUES($1, $2, $3) RETURNING id', 
-        [req.body.username, req.body.email, req.body.password]);
+    client.connect();
+    // cient.query(
+    //     'INSERT into users (username, email, password) VALUES($1, $2, $3) RETURNING id', 
+    //     [req.body.username, req.body.email, req.body.password]);
 });
 
 
