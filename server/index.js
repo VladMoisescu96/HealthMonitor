@@ -12,7 +12,9 @@ app.use(session({
     secret: 'keyboard ca',
     resave: false,
     saveUninitialized: true,
-    cookie: {secure: true}
+    cookie: {secure: true,
+             proxy: true,
+             maxAge:5184000000}
 }));
 
 app.use(cors());
