@@ -1,10 +1,20 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const session = require('express-session');
+const cookieParser= require('cookie-parser');
 
 const app = express();
 
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(session({
+    secret: 'keyboard ca',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {secure: true}
+}));
+
 app.use(cors());
 
 const register = require('./routes/api/register');
