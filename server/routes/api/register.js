@@ -25,7 +25,6 @@ router.post('/', async (req, res) => {
     await client.query('INSERT into users (username, email, password, birth_date, user_type_id, group_id) VALUES($1, $2, $3, $4, $5, $6)', 
         [username, email, password, birthDate, userTypeId, groupId]);
 
-    client.end();
     res.send(process.env.DATABASE_URL);
 
 });

@@ -55,5 +55,5 @@
 -- );
 
 DELETE FROM users
-  WHERE user_id = 5;
+  WHERE user_id = 6;
 
