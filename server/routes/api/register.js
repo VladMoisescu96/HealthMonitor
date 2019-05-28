@@ -17,10 +17,13 @@ router.post('/', async (req, res) => {
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
+    const birthDate = req.body.birthDate;
+    const userTypeId = req.body.userTypeId;
+    const groupId = req.body.groupId;
 
     client.connect();
-    client.query('INSERT into users (username, email, password) VALUES($1, $2, $3) RETURNING id', 
-        [req.body.username, req.body.email, req.body.password]);
+    client.query('INSERT into users (username, email, password, birth_date, user_type_id, group_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING id', 
+        [username, email, password, birthDate, userTypeId, groupId]);
 
     client.end();
     res.send(process.env.DATABASE_URL);
