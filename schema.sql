@@ -54,4 +54,6 @@
 --     PRIMARY KEY (steps_id)
 -- );
 
-ALTER TABLE USERS ADD CONSTRAINT unique_email UNIQUE (email);
+DELETE FROM users
+  WHERE user_id = 5;
+
