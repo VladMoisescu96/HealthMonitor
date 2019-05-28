@@ -8,12 +8,12 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.enable('trust proxy');
 app.use(session({
     secret: 'keyboard ca',
     resave: false,
     saveUninitialized: true,
     cookie: {secure: true,
-             proxy: true,
              maxAge:5184000000}
 }));
 
