@@ -16,13 +16,13 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
 
     client.connect();
-    client.query('INSERT into users (username, email, password) VALUES($1, $2, $3) RETURNING id', 
-        [req.body.username, req.body.email, req.body.password]);
+    client.query('INSERT into BODY_HEIGHT (height, date, user_id) VALUES($1, $2, $3) RETURNING id', 
+    [req.body.height, new Date(), req.body.userId]);
 
-    client.end();
     res.send(process.env.DATABASE_URL);
-
 });
+
+
 
 
 module.exports = router;

@@ -7,8 +7,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const auth = require('./routes/api/auth');
-app.use('/api/auth', auth);
+const register = require('./routes/api/register');
+app.use('/api/register', register);
 
 if (process.env.NODE_ENV === 'production') {
     
