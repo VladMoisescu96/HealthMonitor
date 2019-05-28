@@ -12,7 +12,7 @@ app.enable('trust proxy');
 app.use(session({
     secret: 'keyboard ca',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {secure: true,
              maxAge:5184000000}
 }));
