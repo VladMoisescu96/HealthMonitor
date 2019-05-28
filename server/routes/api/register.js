@@ -14,6 +14,20 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
 
+    req.checkBody('username', 'Username field cannot be empty.').notEmpty();
+    req.checkBody('email', 'The email you entered is invalid, please try again').isEmail();
+    req.checkBody('userTypeId', 'User Type field cannot be empty.').notEmpty();
+    req.checkBody('groupId', 'Group field cannot be empty.').notEmpty();
+
+
+    const errors = req.validationErrors();
+
+    if (errors) {
+        res.send('register', {
+            title: 'Registration Error',
+            errors: errors
+        });
+    }
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
