@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
         res.send('register', {
             title: 'Registration Error',
             errors: errors
-        });
+        }); 
     }
     const username = req.body.username;
     const email = req.body.email;
