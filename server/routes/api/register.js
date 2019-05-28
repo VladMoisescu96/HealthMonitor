@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
     res.send("Hello from users");
 });
 
-router.post('/', async (req, res) => {
+router.post('/', (req, res) => {
 
     const username = req.body.username;
     const email = req.body.email;
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
 
     bcrypt.hash(password, saltRound, function(err, hash) {
         
-        await client.query('INSERT into users (username, email, password, birth_date, user_type_id, group_id) VALUES($1, $2, $3, $4, $5, $6)', 
+        client.query('INSERT into users (username, email, password, birth_date, user_type_id, group_id) VALUES($1, $2, $3, $4, $5, $6)', 
             [username, email, hash, birthDate, userTypeId, groupId]);
 
         res.send(process.env.DATABASE_URL);
