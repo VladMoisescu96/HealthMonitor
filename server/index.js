@@ -1,15 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const session = require('cookie-session');
-const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
 const passport = require('passport');
 const { Client } = require('pg');
 
 const app = express();
 
-app.use(bodyParser.json());
-app.use(cookieParser());
+app.use(bodyParser.json());;
 app.enable('trust proxy');
 app.use(cookieSession({
     name: 'mysession',
