@@ -12,7 +12,7 @@ const authMiddleware = (req, res, next) => {
 
 router.get("/", authMiddleware, (req, res) => {  
   
-    res.send({ user: 7 })
+    res.send({ user: req.user })
   });
 
 module.exports = router;
