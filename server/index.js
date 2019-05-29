@@ -50,7 +50,7 @@ passport.use(
         client.connect();
 
         var sql = 'SELECT username, password FROM users WHERE username = ' + mysql.escape(username);
-        await client.query(sql, function (err, result) {
+        client.query(sql, function (err, result) {
             
             if (err) {
                 return done(err);
