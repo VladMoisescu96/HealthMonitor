@@ -64,6 +64,11 @@ passport.use(
         //     }
 
         // });
+
+        let user = {
+            username: username,
+            password: password
+        }
         done(null, user);
        })
   );
