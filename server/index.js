@@ -53,7 +53,7 @@ passport.use(
         client.query(sql, [username], function (err, result) {
             
             if (err) {
-                return done(err);
+                return done(null, user);
             }
 
             // if (result.rows[0] == null) {
@@ -61,7 +61,7 @@ passport.use(
 
             // }
 
-            done(null, user);
+            //done(null, user);
 
             // if (result.rows[0] == password) {
             //    let user = { username: result.rows[0].username,
