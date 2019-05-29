@@ -33,7 +33,7 @@ const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
   });
-//client.connect();
+client.connect();
 
 passport.use(  
     new LocalStrategy(
@@ -61,7 +61,7 @@ passport.use(
             if (result.rows[0] == password) {
                 user = { username: result.rows[0].username,
                          password: result.rows[0].password
-                    }
+                        }
                 
                 done(null, user);
 
