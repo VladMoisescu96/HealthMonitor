@@ -44,7 +44,7 @@ passport.use(
         console.log("ana are mere");
         
 
-        var sql = 'SELECT * FROM users WHERE username = ?';
+        var sql = 'SELECT * FROM users WHERE username = $1';
 
         let user = {
             username: username,
@@ -53,7 +53,7 @@ passport.use(
         client.query(sql, [username], function (err, result) {
             
             if (err) {
-                return done(null, user);
+                return done(err);
             }
 
             // if (result.rows[0] == null) {
@@ -61,7 +61,7 @@ passport.use(
 
             // }
 
-            //done(null, user);
+            done(null, user);
 
             // if (result.rows[0] == password) {
             //    let user = { username: result.rows[0].username,
