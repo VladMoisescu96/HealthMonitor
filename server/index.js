@@ -61,7 +61,7 @@ passport.use(
             if (result.rows[0] == password) {
                 user = { username: result.rows[0].username,
                          password: result.rows[0].password
-                        }
+                    }
                 
                 done(null, user);
 
