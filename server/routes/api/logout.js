@@ -3,7 +3,7 @@ const passport = require('passport');
 
 const router = express.Router();
 
-app.get('/', function(req, res){
+router.get('/', function(req, res){
     req.logout();
     console.log("logged out")
     return res.send();

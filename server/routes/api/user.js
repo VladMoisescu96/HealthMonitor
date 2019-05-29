@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 
-app.get("/", authMiddleware, (req, res) => {  
+router.get("/", authMiddleware, (req, res) => {  
     let user = users.find(user => {
       return user.id === req.session.passport.user
     })

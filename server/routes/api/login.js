@@ -14,7 +14,7 @@ router.get('/', async (req, res) => {
     res.send("Hello from users");
 });
 
-app.post("/", (req, res, next) => {
+router.post("/", (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) {
             return next(err);
