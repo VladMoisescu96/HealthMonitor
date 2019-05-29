@@ -35,14 +35,9 @@ const client = new Client({
   });
 
 passport.use(  
-    new LocalStrategy({passReqToCallback : true},
-  
-      (username, password, done) => {
-
-        const client = new Client({
-            connectionString: process.env.DATABASE_URL,
-            ssl: true,
-        });
+    new LocalStrategy(
+      
+        (username, password, done) => {
 
         client.connect();
 
