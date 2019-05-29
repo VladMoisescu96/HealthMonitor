@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const { Client } = require('pg');
+const uuidv4 = require('uuid/v4');
+const LocalStrategy = require('passport-local').Strategy;
 
 const saltRound = 10;
 

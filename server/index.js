@@ -1,26 +1,85 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const session = require('express-session');
-const cookieParser= require('cookie-parser');
+const session = require('cookie-session');
+const cookieParser = require('cookie-parser');
+const passport = require('passport');
+const { Client } = require('pg');
 
 const app = express();
 
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.enable('trust proxy');
-app.use(session({
-    secret: 'keyboard ca',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {secure: true,
-             maxAge:5184000000}
-}));
+app.use(cookieSession({
+    name: 'mysession',
+    keys: ['vueauthrandomkey'],
+    secure:true,
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours 
+  }))
 
-app.use(cors());
+app.use(passport.initialize());
+app.use(passport.session());
 
 const register = require('./routes/api/register');
 app.use('/api/register', register);
+const login = require('./routes/api/login');
+app.use('/api/login', login);
+const user = require('./routes/api/user');
+app.use('/api/user', user);
+
+const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
+
+passport.use(  
+    new LocalStrategy(
+      {
+        usernameField: "username",
+        passwordField: "password"
+      },
+  
+      (username, password, done) => {
+
+        const client = new Client({
+            connectionString: process.env.DATABASE_URL,
+            ssl: true,
+        });
+
+        client.connect();
+
+        var sql = 'SELECT username, password FROM users WHERE username = ' + mysql.escape(username);
+        await client.query(sql, function (err, result) {
+            
+            if (err) {
+                return done(err);
+            }
+
+            if (result.rows[0] == null) {
+                done(null, false, {message: 'Incorrect username or password'})
+
+            }
+
+            if (result.rows[0] == password) {
+                user = { username: result.rows[0].username,
+                         password: result.rows[0].password
+                        }
+                
+                done(null, user);
+
+            }
+
+        });
+      })
+  );
+
+passport.serializeUser(function(user, done) {
+    done(null, user);
+});
+passport.deserializeUser(function(user, done) {
+    done(null, user);
+});
 
 if (process.env.NODE_ENV === 'production') {
     
