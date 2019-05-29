@@ -40,7 +40,7 @@ passport.use(
         (username, password, done) => {
 
         var sql = 'SELECT username, password FROM users WHERE username = ?';
-        client.query(sql, [username] , function (err, result) {
+       //client.query(sql, [username] , function (err, result) {
             
             user = { username: username,
                     password: password
@@ -66,7 +66,7 @@ passport.use(
             //     done(null, false, {message: 'Incorrect username or password'})
             // }
 
-        });
+        //});
        })
   );
 
