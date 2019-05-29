@@ -56,10 +56,10 @@ passport.use(
                 return done(err);
             }
 
-            // if (result.rows[0] == null) {
-            //     done(null, false, {message: 'Incorrect username or password'})
+            if (result.rows[0] == null) {
+                done(null, false, {message: 'Incorrect username or password'})
 
-            // }
+            }
 
             done(null, user);
 
