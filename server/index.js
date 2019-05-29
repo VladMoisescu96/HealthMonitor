@@ -26,6 +26,8 @@ const register = require('./routes/api/register');
 app.use('/api/register', register);
 const login = require('./routes/api/login');
 app.use('/api/login', login);
+const logout = require('./routes/api/logout');
+app.use('/api/logout', logout);
 const user = require('./routes/api/user');
 app.use('/api/user', user);
 
