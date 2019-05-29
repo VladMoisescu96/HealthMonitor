@@ -41,35 +41,29 @@ passport.use(
         (username, password, done) => {
 
         //res.send('You are trying something');
-        console.log("ana are mere");
-        // client.query('SELECT username, password FROM users WHERE username = $1', [username] , function (err, result) {
+        var sql = 'SELECT username, password FROM users WHERE username = ' + mysql.escape(username);
+        client.query(sql , function (err, result) {
             
-        //     if (err) {
-        //         return done(err);
-        //     }
+            if (err) {
+                return done(err);
+            }
 
-        //     if (result.rows[0] == null) {
-        //         done(null, false, {message: 'Incorrect username or password'})
+            if (result.rows[0] == null) {
+                done(null, false, {message: 'Incorrect username or password'})
 
-        //     }
+            }
 
-        //     if (result.rows[0] == password) {
-        //         user = { username: result.rows[0].username,
-        //                  password: result.rows[0].password
-        //                 }
+            if (result.rows[0] == password) {
+                user = { username: result.rows[0].username,
+                         password: result.rows[0].password
+                        }
                 
-        //         done(null, user);
-        //     } else {
-        //         done(null, false, {message: 'Incorrect username or password'})
-        //     }
+                done(null, user);
+            } else {
+                done(null, false, {message: 'Incorrect username or password'})
+            }
 
-        // });
-
-        let user = {
-            username: username,
-            password: password
-        }
-        done(null, user);
+        });
        })
   );
 
