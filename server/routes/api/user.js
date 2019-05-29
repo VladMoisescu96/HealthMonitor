@@ -1,15 +1,11 @@
 const express = require('express');
 const passport = require('passport');
+const router = express.Router();
 
 router.get("/", authMiddleware, (req, res) => {  
-    let user = users.find(user => {
-      return user.id === req.session.passport.user
-    })
   
-    console.log([user, req.session])
-  
-    res.send({ user: user })
-  })
+    res.send({ user: 7 })
+  });
 
   const authMiddleware = (req, res, next) => {  
     if (!req.isAuthenticated()) {
@@ -18,3 +14,5 @@ router.get("/", authMiddleware, (req, res) => {
       return next()
     }
   }
+
+  module.exports = router;
