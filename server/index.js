@@ -61,16 +61,15 @@ passport.use(
 
             }
 
-            done(null, user);
-
-            // if (result.rows[0] == password) {
-            //    let user = { username: result.rows[0].username,
-            //              password: result.rows[0].password
-            //             }
+            if (result.rows[0] == password) {
+               let user = { username: result.rows[0].username,
+                         password: result.rows[0].password
+                        }
                 
-            //     done(null, user);
-            // }
-
+                done(null, user);
+            } else {
+                done(null, false, {message: 'Incorrect username or password'})
+            }
         });
         
        })
