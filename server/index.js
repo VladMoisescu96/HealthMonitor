@@ -15,6 +15,7 @@ app.enable('trust proxy');
 app.use(cookieSession({
     name: 'mysession',
     keys: ['vueauthrandomkey'],
+    //secure:true,
     maxAge: 24 * 60 * 60 * 1000 // 24 hours 
   }))
 
@@ -32,41 +33,42 @@ const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
   });
-//client.connect();
+client.connect();
 
 passport.use(  
     new LocalStrategy(
       
         (username, password, done) => {
 
-        var sql = 'SELECT username, password FROM users WHERE username = ?';
-       //client.query(sql, [username] , function (err, result) {
+        //res.send('You are trying something');
+        console.log("ana are mere");
+        var sql = 'SELECT username, password FROM users WHERE username = ' + username;
+        let user = {
+            username: username,
+            password: password
+        }
+        // client.query(sql, function (err, result) {
             
-            user = { username: username,
-                    password: password
-                    }
+        //     if (err) {
+        //         return done(err);
+        //     }
 
-            // if (err) {
-            //     return done(err);
-            // }
+        //     if (result.rows[0] == null) {
+        //         done(null, false, {message: 'Incorrect username or password'})
 
-            // if (result.rows[0] == null) {
-            //     done(null, false, {message: 'Incorrect username or password'})
+        //     }
 
-            // }
-
-            done(null, user);
-            // if (result.rows[0].password == password) {
-            //     user = { username: result.rows[0].username,
-            //              password: result.rows[0].password
-            //             }
+        //     if (result.rows[0] == password) {
+        //         user = { username: result.rows[0].username,
+        //                  password: result.rows[0].password
+        //                 }
                 
-            //     done(null, user);
-            // } else {
-            //     done(null, false, {message: 'Incorrect username or password'})
-            // }
+        //         done(null, user);
 
-        //});
+        //     }
+
+        // });
+        done (null, user);
        })
   );
 
