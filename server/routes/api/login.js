@@ -3,13 +3,6 @@ const passport = require('passport');
 
 const router = express.Router();
 
-const { Client } = require('pg');
-
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: true,
-});
-
 router.get('/', async (req, res) => {
     res.send("Hello from users");
 });
@@ -17,7 +10,7 @@ router.get('/', async (req, res) => {
 router.post("/", (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) {
-            return next(err);
+            res.send(err);
         }
         
         if (!user) {
@@ -27,7 +20,9 @@ router.post("/", (req, res, next) => {
         req.login(user, (err) => {
             res.send("Logged in")
         })
-    })(req, res, next)
+    })(req, res, next);
+
+
 })
 
 
