@@ -15,7 +15,7 @@ app.enable('trust proxy');
 app.use(cookieSession({
     name: 'mysession',
     keys: ['vueauthrandomkey'],
-    secure:true,
+    //secure:true,
     maxAge: 24 * 60 * 60 * 1000 // 24 hours 
   }))
 
@@ -24,60 +24,53 @@ app.use(passport.session());
 
 const register = require('./routes/api/register');
 app.use('/api/register', register);
-// const login = require('./routes/api/login');
-// app.use('/api/login', login);
+const login = require('./routes/api/login');
+app.use('/api/login', login);
 const user = require('./routes/api/user');
 app.use('/api/user', user);
-
-const authMiddleware = (req, res, next) => {  
-    if (!req.isAuthenticated()) {
-        res.status(401).send('You are not authenticated')
-    } else {
-        return next()
-    }
-}
-
-app.get("/api/login", authMiddleware, (req, res) => {  
-  
-    res.send({ user: req.user })
-  });
-
 
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
   });
-client.connect();
+//client.connect();
 
 passport.use(  
     new LocalStrategy(
       
         (username, password, done) => {
 
-        res.send('You are trying something');
+        //res.send('You are trying something');
+        console.log("ana are mere");
         var sql = 'SELECT username, password FROM users WHERE username = ' + username;
-        client.query(sql, function (err, result) {
+        let user = {
+            username: username,
+            password: password
+        }
+    //     client.query(sql, function (err, result) {
             
-            if (err) {
-                return done(err);
-            }
+    //         if (err) {
+    //             return done(err);
+    //         }
 
-            if (result.rows[0] == null) {
-                done(null, false, {message: 'Incorrect username or password'})
+    //         if (result.rows[0] == null) {
+    //             done(null, false, {message: 'Incorrect username or password'})
 
-            }
+    //         }
 
-            if (result.rows[0] == password) {
-                user = { username: result.rows[0].username,
-                         password: result.rows[0].password
-                        }
+    //         if (result.rows[0] == password) {
+    //             user = { username: result.rows[0].username,
+    //                      password: result.rows[0].password
+    //                     }
                 
-                done(null, user);
+    //             done(null, user);
 
-            }
+    //         }
 
-        });
-      })
+    //     });
+        done(null, user);
+        console.log(user);
+       })
   );
 
 passport.serializeUser(function(user, done) {
