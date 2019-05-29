@@ -33,13 +33,12 @@ const client = new Client({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
   });
+client.connect();
 
 passport.use(  
     new LocalStrategy(
       
         (username, password, done) => {
-
-        client.connect();
 
         res.status(401).send('You are trying something');
         var sql = 'SELECT username, password FROM users WHERE username = ' + mysql.escape(username);
