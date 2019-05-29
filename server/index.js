@@ -42,8 +42,7 @@ passport.use(
 
         //res.send('You are trying something');
         console.log("ana are mere");
-        var sql = 'SELECT username, password FROM users WHERE username = ' + username;
-        client.query(sql, function (err, result) {
+        client.query('SELECT username, password FROM users WHERE username = $1', [username] , function (err, result) {
             
             if (err) {
                 return done(err);
