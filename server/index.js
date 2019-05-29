@@ -3,6 +3,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+
+const LocalStrategy = require('passport-local').Strategy
+
 const { Client } = require('pg');
 
 const app = express();
