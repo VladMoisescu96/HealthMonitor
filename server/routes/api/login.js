@@ -11,6 +11,7 @@ router.post("/", (req, res, next) => {
     passport.authenticate('local', (err, user, info) => {
         if (err) {
             res.send(err);
+            return next(err);
         }
         
         if (!user) {
