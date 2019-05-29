@@ -44,9 +44,13 @@ passport.use(
         console.log("ana are mere");
         
 
-        var sql = 'SELECT * FROM users WHERE username = $1 AND password = $2';
+        var sql = 'SELECT * FROM users WHERE username = $1';
 
-        client.query(sql, [username, password], function (err, result) {
+        let user = {
+            username: username,
+            password: password
+        };
+        client.query(sql, [username], function (err, result) {
             
             if (err) {
                 return done(err);
@@ -55,10 +59,19 @@ passport.use(
             if (result.rows[0] == null) {
                 done(null, false, {message: 'Incorrect username or password'})
 
-            }                
-            
-            done(null, user);
+            }
 
+            done(null, user);
+        
+            // if (result.rows[0].password == password) {
+            //    let user = { username: result.rows[0].username,
+            //              password: result.rows[0].password
+            //             }
+                
+            //     done(null, user);
+            // } else {
+            //     done(null, false, {message: 'Incorrect username or password'})
+            // }
         });
         
        })
