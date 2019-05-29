@@ -52,9 +52,9 @@ passport.use(
         };
         client.query(sql, [username], function (err, result) {
             
-            // if (err) {
-            //     return done(err);
-            // }
+            if (err) {
+                return done(err);
+            }
 
             // if (result.rows[0] == null) {
             //     done(null, false, {message: 'Incorrect username or password'})
