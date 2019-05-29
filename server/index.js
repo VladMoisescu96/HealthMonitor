@@ -24,10 +24,24 @@ app.use(passport.session());
 
 const register = require('./routes/api/register');
 app.use('/api/register', register);
-const login = require('./routes/api/login');
-app.use('/api/login', login);
+// const login = require('./routes/api/login');
+// app.use('/api/login', login);
 const user = require('./routes/api/user');
 app.use('/api/user', user);
+
+const authMiddleware = (req, res, next) => {  
+    if (!req.isAuthenticated()) {
+        res.status(401).send('You are not authenticated')
+    } else {
+        return next()
+    }
+}
+
+app.get("/api/login", authMiddleware, (req, res) => {  
+  
+    res.send({ user: req.user })
+  });
+
 
 const client = new Client({
     connectionString: process.env.DATABASE_URL,
