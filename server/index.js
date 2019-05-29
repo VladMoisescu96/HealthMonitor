@@ -42,14 +42,18 @@ passport.use(
         var sql = 'SELECT username, password FROM users WHERE username = ?';
         client.query(sql, [username] , function (err, result) {
             
+            user = { username: username,
+                    password: password
+                    }
+
             if (err) {
                 return done(err);
             }
 
-            // if (result.rows[0] == null) {
-            //     done(null, false, {message: 'Incorrect username or password'})
+            if (result.rows[0] == null) {
+                done(null, false, {message: 'Incorrect username or password'})
 
-            // }
+            }
 
             done(null, user);
             // if (result.rows[0].password == password) {
