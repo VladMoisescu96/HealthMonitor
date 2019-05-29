@@ -15,7 +15,6 @@ app.enable('trust proxy');
 app.use(cookieSession({
     name: 'mysession',
     keys: ['vueauthrandomkey'],
-    //secure:true,
     maxAge: 24 * 60 * 60 * 1000 // 24 hours 
   }))
 
@@ -41,8 +40,8 @@ passport.use(
         (username, password, done) => {
 
         //res.send('You are trying something');
-        var sql = 'SELECT username, password FROM users WHERE username = ' + mysql.escape(username);
-        client.query(sql , function (err, result) {
+        var sql = 'SELECT username, password FROM users WHERE username = ?';
+        client.query(sql, [username] , function (err, result) {
             
             if (err) {
                 return done(err);
