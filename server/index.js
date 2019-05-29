@@ -35,11 +35,7 @@ const client = new Client({
   });
 
 passport.use(  
-    new LocalStrategy(
-      {
-        usernameField: "username",
-        passwordField: "password"
-      },
+    new LocalStrategy({passReqToCallback : true},
   
       (username, password, done) => {
 
