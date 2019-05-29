@@ -61,7 +61,7 @@ passport.use(
 
             }
 
-            if (result.rows[0] == password) {
+            if (result.rows[0].password == password) {
                let user = { username: result.rows[0].username,
                          password: result.rows[0].password
                         }
