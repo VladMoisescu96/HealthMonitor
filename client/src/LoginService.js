@@ -22,11 +22,22 @@ class LoginService {
             username,
             password,
         }).then((response) => {
-            console.log("Logged in")
-            router.push("/dashboard")
+            axios.get("/api/user")
+            .then((response) => {
+              console.log("Raspuns la navigare:")
+              console.log(response)
+              return true
+            })
+            .catch((errors) => {
+                console.log("Raspuns la navigare:")
+              console.log(errors)
+              router.push("/")
+              return false
+            })
         })
         .catch((errors) => {
             console.log(errors);
+            return false;
         })
     }
 }

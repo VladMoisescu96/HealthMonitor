@@ -1,9 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
-
+const socket = require('socket.io');
 const LocalStrategy = require('passport-local').Strategy
 
 const { Client } = require('pg');
@@ -89,4 +88,37 @@ if (process.env.NODE_ENV === 'production') {
 
 const port = process.env.PORT || 5000;
 
-app.listen(port, () => console.log(`Server started on port ${port}`));
+server = app.listen(port, () => console.log(`Server started on port ${port}`));
+
+const io = socket(server);
+io.on('connection', function(socket) {
+    console.log("connected on socket: " + socket.id);
+})
+
+io.on("pula",function(data) {
+    socket.emit("pulaa", {
+        data: "pulaaaaaa"
+    });
+});
+
+io.on('store-height', function(data) {
+
+    client.query("SELECT * FROM users WHERE username = $1", [data.username], function(err, result) {
+      
+        if (err) {
+            socket.emit("error-height", "error when getting user");
+        }
+    
+        if (result.rows[0] == null) {
+            socket.emit("error-height","User not found");
+        }
+    
+        client.query(
+            "INSERT into BODY_HEIGHT (height, date, user_id) VALUES($1, $2, $3)", [data.height, new Date(), result.rows[0].username], function(err, result) {
+                socket.emit("new-height", {
+                    username: result.rows[0].username,
+                    value: data.height
+                })
+        });
+    });
+})

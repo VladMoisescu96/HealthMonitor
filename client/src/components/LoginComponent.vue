@@ -9,7 +9,8 @@
     </div>
 </template>
 
-<script>  
+<script> 
+
     import LoginService from '../LoginService'   
     export default { 
         name: "Login",
@@ -21,8 +22,22 @@
         },
         methods: {    
             login() {
-                LoginService.login(this.username, this.password);
+                LoginService.login(this.username, this.password)
             }
-        }
+        },
+sockets: {
+    connect: function() {
+      console.log("socket connected");
+      this.$socket.emit("pula", {
+        data: "data",
+        data2: "data2"
+      });
+      console.log(this.$socket);
+    },
+    pulaa: function(data) {
+      console.log(data.data);
+    }
+  }
+
     }
 </script>
